@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ProductivityHub - Stay Organized & Focused</title>
+    <meta
+      name="description"
+      content="All-in-one productivity app with to-do lists, Pomodoro timer, habit tracker, notes, and daily inspiration"
+    />
+    <link rel="stylesheet" href="app.css" />
+  </head>
+  <body>
+    <nav class="navbar" id="main-navbar">
+      <div class="navbar-container">
+        <div class="logo">
+          <div class="logo-icon">✓</div>
+          <span>ProductivityHub</span>
+        </div>
+
+        <!-- Desktop nav buttons -->
+        <div class="nav-buttons">
+          <button
+            class="nav-btn active"
+            data-tab="todo"
+            onclick="showTab('todo')"
+          >
+            To-do List
+          </button>
+          <button
+            class="nav-btn"
+            data-tab="pomodoro"
+            onclick="showTab('pomodoro')"
+          >
+            Pomodoro Timer
+          </button>
+          <button class="nav-btn" data-tab="habits" onclick="showTab('habits')">
+            Habit Tracker
+          </button>
+          <button class="nav-btn" data-tab="notes" onclick="showTab('notes')">
+            Notes App
+          </button>
+          <button class="nav-btn" data-tab="quote" onclick="showTab('quote')">
+            Daily Quote
+          </button>
+        </div>
+
+        <!-- Hamburger button (mobile only, positioned at right) -->
+        <button
+          class="hamburger"
+          id="hamburger-btn"
+          aria-label="Open menu"
+          aria-expanded="false"
+          onclick="toggleHamburger()"
+        >
+          <span class="bar"></span>
+        </button>
+      </div>
+
+      <!-- Mobile menu (stacked items) -->
+      <div class="mobile-menu" id="mobile-menu">
+        <div class="nav-buttons">
+          <button
+            class="nav-btn active"
+            data-tab="todo"
+            onclick="showTab('todo', true)"
+          >
+            To-do List
+          </button>
+          <button
+            class="nav-btn"
+            data-tab="pomodoro"
+            onclick="showTab('pomodoro', true)"
+          >
+            Pomodoro Timer
+          </button>
+          <button
+            class="nav-btn"
+            data-tab="habits"
+            onclick="showTab('habits', true)"
+          >
+            Habit Tracker
+          </button>
+          <button
+            class="nav-btn"
+            data-tab="notes"
+            onclick="showTab('notes', true)"
+          >
+            Notes App
+          </button>
+          <button
+            class="nav-btn"
+            data-tab="quote"
+            onclick="showTab('quote', true)"
+          >
+            Daily Quote
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+      <!-- To-do List -->
+      <div id="todo-section" class="card">
+        <h2>To-do List</h2>
+        <div class="input-group">
+          <input type="text" id="todo-input" placeholder="Add a new task..." />
+          <button class="btn btn-primary" onclick="addTodo()">Add</button>
+        </div>
+        <div id="todo-list"></div>
+        <div id="todo-count" class="info-box"></div>
+      </div>
+
+      <!-- Pomodoro Timer -->
+      <div id="pomodoro-section" class="card hidden">
+        <h2>Pomodoro Timer</h2>
+        <p
+          style="
+            text-align: center;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+          "
+          id="timer-mode"
+        >
+          Focus Time
+        </p>
+        <div id="timer-display" class="timer-display">25:00</div>
+        <div
+          style="
+            text-align: center;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+          "
+        >
+          <span id="timer-label">25 minute work session</span>
+        </div>
+        <div class="timer-controls">
+          <button class="btn btn-primary" onclick="toggleTimer()">
+            <span id="timer-btn-text">Start</span>
+          </button>
+          <button class="btn btn-outline" onclick="resetTimer()">Reset</button>
+        </div>
+        <div class="info-box">
+          Work for 25 minutes, then take a 5 minute break. Repeat for better
+          focus and productivity!
+        </div>
+      </div>
+
+      <!-- Habit Tracker -->
+      <div id="habits-section" class="card hidden">
+        <h2>Habit Tracker</h2>
+        <div class="input-group">
+          <input
+            type="text"
+            id="habit-input"
+            placeholder="Add a new habit..."
+          />
+          <button class="btn btn-secondary" onclick="addHabit()">Add</button>
+        </div>
+        <div id="habit-list"></div>
+        <div class="info-box">
+          Track your daily habits and build consistent routines. Check off
+          completed habits each day!
+        </div>
+      </div>
+
+      <!-- Notes App -->
+      <div id="notes-section" class="card hidden">
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+          "
+        >
+          <h2 style="margin: 0">Notes</h2>
+          <button class="btn btn-primary" onclick="createNote()">
+            New Note
+          </button>
+        </div>
+        <div id="note-edit-form" class="edit-form hidden">
+          <input
+            type="text"
+            id="note-title"
+            placeholder="Note title..."
+            style="margin-bottom: 0.75rem"
+          />
+          <textarea
+            id="note-content"
+            placeholder="Write your note here..."
+          ></textarea>
+          <div class="form-buttons">
+            <button class="btn btn-secondary" onclick="saveNote()">Save</button>
+            <button class="btn btn-outline" onclick="cancelEdit()">
+              Cancel
+            </button>
+          </div>
+        </div>
+        <div id="notes-list"></div>
+      </div>
+
+      <!-- Daily Quote -->
+      <div id="quote-section" class="card hidden">
+        <div
+          style="
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+          "
+        >
+          <span style="font-size: 2rem">✨</span>
+          <h2 style="margin: 0">Daily Inspiration</h2>
+        </div>
+        <div class="quote-box">
+          <div class="quote-text" id="quote-text"></div>
+          <div class="quote-author" id="quote-author"></div>
+        </div>
+        <div style="text-align: center; margin-top: 1.5rem">
+          <button class="btn btn-outline" onclick="getNewQuote()">
+            Get Another Quote
+          </button>
+        </div>
+        <div class="info-box">
+          A new quote appears daily. Click the button above to discover more
+          inspiration!
+        </div>
+      </div>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>

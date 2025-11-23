@@ -1,5 +1,5 @@
 # Productivity Hub
-[Live Demo](https://harshitverma-06.github.io/Movie-Search-App/)
+[Live Demo](https://harshitverma-06.github.io/Productivity-Hub/)
 
 A simple and responsive web app to use productivity tools . 
 
